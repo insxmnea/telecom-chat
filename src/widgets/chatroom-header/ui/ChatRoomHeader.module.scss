@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 17px;
+  box-shadow: 0px 1px 0px var(--shadow-color);
+  height: var(--height-header);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .title {
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: var(--foreground-light);
+    font-size: 12px;
+  }
+}
