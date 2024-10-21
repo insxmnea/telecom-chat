@@ -1,15 +1,19 @@
+"use client";
+
 import { FC } from "react";
 import styles from "./ChatRoomHeader.module.scss";
 import { EllipsisOutlined } from "@ant-design/icons";
-import Image from "next/image";
-import avatarSrc from "../../../shared/assets/images/__avatar_aubrey.png";
+import { Avatar } from "antd";
 
 export const ChatRoomHeader: FC = () => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.participants}>
-        <Image src={avatarSrc} alt="logo" width={34} height={34} />
-      </div>
+      <Avatar.Group>
+        <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=1" />
+        <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2" />
+        <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=3" />
+        <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=4" />
+      </Avatar.Group>
       <div className={styles.info}>
         <span className={styles.title}>🦄 Team Unicorns</span>
         <span className={styles.subtitle}>last seen 45 minutes ago</span>

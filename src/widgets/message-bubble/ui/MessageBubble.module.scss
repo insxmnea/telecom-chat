@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: var(--background-secondary);
+}
+
+.info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.role,
+.time {
+  color: var(--foreground-light);
+  font-size: 12px;
+}
+
+.time {
+  align-self: flex-end;
+}

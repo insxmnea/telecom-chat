@@ -15,9 +15,9 @@ export const ChatRoomFooter: FC = () => {
         prefix={<SmileOutlined />}
         variant="borderless"
       />
-      <Button type="primary" icon={<PaperClipOutlined />} />
+      <Button ghost type="primary" icon={<PaperClipOutlined />} />
 
-      <Button type="primary" icon={<SendOutlined />} />
+      <Button ghost type="primary" icon={<SendOutlined />} />
     </div>
   );
 };
