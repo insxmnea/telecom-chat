@@ -6,4 +6,8 @@ type User = {
   isOnline: boolean;
 };
 
-export type { User };
+type UsersState = {
+  users: User[];
+};
+
+export type { User, UsersState };

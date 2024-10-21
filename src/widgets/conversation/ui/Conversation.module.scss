@@ -1,3 +1,4 @@
 .wrapper {
   min-height: calc(100vh - var(--height-header) - var(--height-footer));
+  padding-bottom: var(--height-footer);
 }
