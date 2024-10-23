@@ -4,3 +4,11 @@
   padding-top: var(--height-header);
   padding-bottom: var(--height-footer);
 }
+
+.date {
+  color: var(--foreground-light);
+  font-size: 12px;
+  text-align: center;
+  margin-top: 17px;
+  margin-bottom: 20px;
+}

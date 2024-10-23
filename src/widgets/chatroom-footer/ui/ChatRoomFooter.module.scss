@@ -8,3 +8,21 @@
   align-items: center;
   box-shadow: 0px -1px 0px var(--shadow-color);
 }
+
+.sendIcon {
+  color: #007aff;
+}
+
+.disabled {
+  color: #8e8e93;
+}
+
+.buttonWithIcon {
+  color: #3d3d3d;
+
+  transition: all 0.1s ease;
+
+  &:hover {
+    color: #007aff;
+  }
+}
