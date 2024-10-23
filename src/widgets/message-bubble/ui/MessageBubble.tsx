@@ -3,7 +3,7 @@ import styles from "./MessageBubble.module.scss";
 import { Avatar } from "antd";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import { useUsersStore } from "@/entities/user/model/users-store";
+import { useUsersStore } from "@/entities/user";
 
 type Props = {
   text: string;

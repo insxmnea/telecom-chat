@@ -4,7 +4,7 @@ import { FC } from "react";
 import styles from "./ChatRoomHeader.module.scss";
 import { EllipsisOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
-import { useUsersStore } from "@/entities/user/model/users-store";
+import { useUsersStore } from "@/entities/user";
 
 export const ChatRoomHeader: FC = () => {
   const users = useUsersStore((state) => state.users);

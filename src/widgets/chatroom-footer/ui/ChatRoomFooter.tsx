@@ -6,7 +6,7 @@ import { FC, useState } from "react";
 import styles from "./ChatRoomFooter.module.scss";
 import { useMessagesStore } from "@/entities/message";
 import classNames from "classnames";
-import { AttachmentIcon } from "@/shared/ui";
+import { AttachmentIcon } from "@/shared";
 
 export const ChatRoomFooter: FC = () => {
   const [inputValue, setInputValue] = useState("");
