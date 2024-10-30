@@ -4,12 +4,45 @@
   padding: 8px 12px;
 }
 
+.right {
+  justify-content: flex-end;
+}
+
+.userBubble,
 .bubble {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template: repeat(2, auto) / repeat(2, auto);
+  grid-template-areas:
+    "message ."
+    ". time";
+
+  .message {
+    grid-area: message;
+  }
+
+  .time {
+    grid-area: time;
+  }
+}
+
+.userBubble {
   padding: 4px 8px;
   border-radius: 8px;
-  background-color: var(--background-secondary);
+  background-color: var(--color-blue-5);
+
+  .text {
+    color: var(--color-white);
+  }
+
+  .time {
+    color: var(--color-white);
+  }
+}
+
+.bubble {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: var(--color-gray-1);
 }
 
 .info {
@@ -24,7 +57,7 @@
 
 .role,
 .time {
-  color: var(--foreground-light);
+  color: var(--color-gray-7);
   font-size: 12px;
 }
 

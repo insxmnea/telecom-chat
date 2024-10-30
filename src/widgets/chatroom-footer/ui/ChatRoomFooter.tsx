@@ -5,7 +5,6 @@ import { Button, Input } from "antd";
 import { FC, useState } from "react";
 import styles from "./ChatRoomFooter.module.scss";
 import { useMessagesStore } from "@/entities/message";
-import classNames from "classnames";
 import { AttachmentIcon } from "@/shared";
 
 export const ChatRoomFooter: FC = () => {
@@ -16,13 +15,6 @@ export const ChatRoomFooter: FC = () => {
     if (!inputValue) return;
 
     addMessage({
-      id: `msg-${Date.now()}-1`,
-      text: "Hello World!",
-      userId: 1,
-      createdAt: new Date(),
-    });
-
-    addMessage({
       id: `msg-${Date.now()}-101`,
       text: inputValue,
       userId: 101,
@@ -30,6 +22,15 @@ export const ChatRoomFooter: FC = () => {
     });
 
     setInputValue("");
+
+    setTimeout(() => {
+      addMessage({
+        id: `msg-${Date.now()}-1`,
+        text: "Hello World!",
+        userId: 1,
+        createdAt: new Date(),
+      });
+    }, 500);
   };
 
   return (
@@ -56,13 +57,7 @@ export const ChatRoomFooter: FC = () => {
       <Button
         color="default"
         variant="link"
-        icon={
-          <SendOutlined
-            className={classNames(styles.sendIcon, {
-              [styles.disabled]: !inputValue,
-            })}
-          />
-        }
+        icon={<SendOutlined className={styles.buttonWithIcon} />}
         onClick={onSubmit}
         disabled={!inputValue}
       />
