@@ -15,14 +15,14 @@ const CheckmarkSvg = () => (
     <path
       d="M11.7931 1.00041L4.63338 8.87892L1.142 5.5396"
       stroke="var(--color-green-3)"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M16.7401 0.999996L9.57997 8.87892L6.98385 6.42003"
       stroke="var(--color-green-3)"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

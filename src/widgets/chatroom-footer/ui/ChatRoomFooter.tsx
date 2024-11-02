@@ -1,11 +1,12 @@
 "use client";
 
 import { SendOutlined, SmileOutlined } from "@ant-design/icons";
-import { Button, Input } from "antd";
+import { Button, Input, Upload } from "antd";
 import { FC, useState } from "react";
 import styles from "./ChatRoomFooter.module.scss";
 import { useMessagesStore } from "@/entities/message";
 import { AttachmentIcon } from "@/shared";
+import { AttachmentProps } from "../model/AttachmentProps";
 
 export const ChatRoomFooter: FC = () => {
   const [inputValue, setInputValue] = useState("");
@@ -48,16 +49,23 @@ export const ChatRoomFooter: FC = () => {
         onChange={(e) => setInputValue(e.target.value)}
         onPressEnter={onSubmit}
       />
-      <Button
-        color="default"
-        variant="link"
-        icon={<AttachmentIcon className={styles.buttonWithIcon} />}
-      />
+
+      <Upload {...AttachmentProps}>
+        <Button
+          color="default"
+          variant="link"
+          icon={<AttachmentIcon className={styles.buttonWithIcon} />}
+        />
+      </Upload>
 
       <Button
         color="default"
         variant="link"
-        icon={<SendOutlined className={styles.buttonWithIcon} />}
+        icon={
+          <SendOutlined
+            className={inputValue ? styles.sendIcon : styles.disabled}
+          />
+        }
         onClick={onSubmit}
         disabled={!inputValue}
       />

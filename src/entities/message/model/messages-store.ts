@@ -1,71 +1,50 @@
 import { create } from "zustand";
 import { Message, MessagesState } from "../types/models";
+import { mockedMessages } from "./mockedMessages";
+
+const $LOCAL_MESSAGES_KEY = "messages";
+
+const getInitialMessages = () => {
+  if (typeof window !== "undefined") {
+    const messages =
+      JSON.parse(localStorage.getItem($LOCAL_MESSAGES_KEY) ?? "false") ||
+      mockedMessages;
+
+    return messages;
+  }
+};
 
 export const useMessagesStore = create<MessagesState>((set) => ({
-  messages: [
-    {
-      id: "1",
-      text: "Hi team 👋",
-      userId: 101,
-      createdAt: new Date("Aug 20 2020 11:31"),
-    },
-    {
-      id: "2",
-      text: "Anyone on for lunch today",
-      userId: 101,
-      createdAt: new Date("Aug 20 2020 11:31"),
-    },
-    {
-      id: "3",
-      text: "I’m down! Any ideas??",
-      userId: 1,
-      createdAt: new Date("Aug 20 2020 11:35"),
-    },
-    {
-      id: "4",
-      text: "I am down for whatever!",
-      userId: 101,
-      createdAt: new Date("Aug 20 2020 11:36"),
-    },
-    {
-      id: "5",
-      text: "I was thinking the cafe downtown",
-      userId: 2,
-      createdAt: new Date("Aug 20 2020 11:45"),
-    },
-    {
-      id: "6",
-      text: "But limited vegan options @Janet!",
-      userId: 2,
-      createdAt: new Date("Aug 20 2020 11:46"),
-    },
-    {
-      id: "7",
-      text: "Agreed",
-      userId: 101,
-      createdAt: new Date("Aug 20 2020 11:52"),
-    },
-    {
-      id: "8",
-      text: "That works- I was actually planning to get a smoothie anyways 👍",
-      userId: 3,
-      createdAt: new Date("Aug 20 2020 12:03"),
-    },
-    {
-      id: "9",
-      text: "On for 12:30 PM then ?",
-      userId: 4,
-      createdAt: new Date("Aug 20 2020 12:04"),
-    },
-  ],
+  messages: getInitialMessages(),
   addMessage: (message: Message) =>
-    set((state) => ({ messages: [...state.messages, message] })),
+    set((state) => {
+      localStorage.setItem(
+        $LOCAL_MESSAGES_KEY,
+        JSON.stringify([...state.messages, message])
+      );
+
+      return { messages: [...state.messages, message] };
+    }),
   editMessage: (message: Message) =>
-    set((state) => ({
-      messages: state.messages.map((m) => (m.id === message.id ? message : m)),
-    })),
+    set((state) => {
+      const result = state.messages.map((m) =>
+        m.id === message.id ? message : m
+      );
+
+      localStorage.setItem($LOCAL_MESSAGES_KEY, JSON.stringify(result));
+
+      return {
+        messages: result,
+      };
+    }),
   deleteMessage: (message: Message) =>
-    set((state) => ({
-      messages: state.messages.filter((m) => m.id !== message.id),
-    })),
+    set((state) => {
+      const result = state.messages.filter((m) => m.id !== message.id);
+
+      localStorage.setItem($LOCAL_MESSAGES_KEY, JSON.stringify(result));
+
+      return {
+        messages: result,
+      };
+    }),
 }));

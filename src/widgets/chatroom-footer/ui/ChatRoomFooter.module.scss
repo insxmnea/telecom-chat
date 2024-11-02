@@ -10,11 +10,21 @@
 }
 
 .sendIcon {
-  color: var(--color-blue-5);
+  svg {
+    color: var(--color-blue-5);
+
+    transition: all 0.1s ease;
+
+    &:hover {
+      color: var(--color-blue);
+    }
+  }
 }
 
 .disabled {
-  color: var(--color-gray-6);
+  svg {
+    color: var(--color-gray-6);
+  }
 }
 
 .buttonWithIcon {
@@ -24,7 +34,7 @@
     transition: all 0.1s ease;
 
     &:hover {
-      color: var(--color-blue-5);
+      color: var(--color-blue);
     }
   }
 }

@@ -6,12 +6,13 @@ import { MessageBubble } from "@/widgets/message-bubble";
 import { useMessagesStore } from "@/entities/message";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import { useStore } from "@/shared";
 
 dayjs.extend(localizedFormat);
 
 export const Conversation: FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const messages = useMessagesStore((state) => state.messages);
+  const messages = useStore(useMessagesStore, (state) => state.messages);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,7 +25,7 @@ export const Conversation: FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.date}>{dayjs(new Date()).format("L")}</div>
-      {messages.map((message) => (
+      {messages?.map((message) => (
         <MessageBubble
           key={message.id}
           text={message.text}
