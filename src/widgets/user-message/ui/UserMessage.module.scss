@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+}
+
+.bubble {
+  display: grid;
+  grid-template: repeat(2, auto) / repeat(2, auto);
+  grid-template-areas:
+    "message ."
+    ". time";
+
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: var(--color-blue-5);
+}
+
+.message {
+  grid-area: message;
+}
+
+.time {
+  grid-area: time;
+
+  display: flex;
+  gap: 4px;
+
+  color: var(--color-white);
+  font-size: 12px;
+  align-self: flex-end;
+}
+
+.text {
+  color: var(--color-white);
+}
+
+.icon {
+  svg {
+    color: var(--color-gray-7);
+  }
+
+  &:hover {
+    svg {
+      color: var(--color-gray-6);
+    }
+  }
+}

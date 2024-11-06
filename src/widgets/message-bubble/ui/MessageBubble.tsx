@@ -1,11 +1,9 @@
 import { FC } from "react";
-import styles from "./MessageBubble.module.scss";
-import { Avatar, Badge } from "antd";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import { useUsersStore } from "@/entities/user";
 import { useSessionStore } from "@/entities/session";
-import { CheckmarkIcon } from "@/shared/ui/CheckmarkIcon";
+import { Message } from "@/widgets/message/ui/Message";
+import { UserMessage } from "@/widgets/user-message";
 
 type Props = {
   text: string;
@@ -16,44 +14,19 @@ type Props = {
 dayjs.extend(localizedFormat);
 
 export const MessageBubble: FC<Props> = (props) => {
-  const users = useUsersStore((state) => state.users);
-  const user = users.find((user) => user.id === props.userId);
-
   const currentUserId = useSessionStore((state) => state.currentUserId);
 
   const messageTime = dayjs(props.time).format("LT");
 
   if (props.userId === currentUserId) {
-    return (
-      <div className={styles.wrapper + " " + styles.right}>
-        <div className={styles.userBubble}>
-          <div className={styles.message}>
-            <span className={styles.text}>{props.text}</span>
-          </div>
-          <span className={styles.time}>
-            {messageTime}
-            <CheckmarkIcon />
-          </span>
-        </div>
-      </div>
-    );
+    return <UserMessage text={props.text} messageTime={messageTime} />;
   }
 
   return (
-    <div className={styles.wrapper}>
-      <Badge dot={user?.isOnline} color="#34C759" offset={[-5, 28]}>
-        <Avatar size={32} src={user?.avatar} />
-      </Badge>
-      <div className={styles.bubble}>
-        <div className={styles.message}>
-          <div className={styles.info}>
-            <span className={styles.name}>{user?.name}</span>
-            <span className={styles.role}>{user?.role}</span>
-          </div>
-          <span className={styles.text}>{props.text}</span>
-        </div>
-        <span className={styles.time}>{messageTime}</span>
-      </div>
-    </div>
+    <Message
+      text={props.text}
+      messageTime={messageTime}
+      userId={props.userId}
+    />
   );
 };
