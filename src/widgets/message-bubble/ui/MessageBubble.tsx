@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./MessageBubble.module.scss";
-import { Avatar } from "antd";
+import { Avatar, Badge } from "antd";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import { useUsersStore } from "@/entities/user";
@@ -41,7 +41,9 @@ export const MessageBubble: FC<Props> = (props) => {
 
   return (
     <div className={styles.wrapper}>
-      <Avatar size={32} src={user?.avatar} />
+      <Badge dot={user?.isOnline} color="#34C759" offset={[-5, 28]}>
+        <Avatar size={32} src={user?.avatar} />
+      </Badge>
       <div className={styles.bubble}>
         <div className={styles.message}>
           <div className={styles.info}>
