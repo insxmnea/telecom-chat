@@ -1,32 +1,33 @@
 import { FC } from "react";
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
-import { useSessionStore } from "@/entities/session";
-import { Message } from "@/widgets/message/ui/Message";
-import { UserMessage } from "@/widgets/user-message";
+import { Avatar, Badge } from "antd";
+import styles from "./MessageBubble.module.scss";
+import { useUsersStore } from "@/entities/user";
+import { Message } from "@/entities/message";
 
 type Props = {
-  text: string;
-  time: Date;
-  userId: number;
+  message: Message;
+  messageTime: string;
 };
 
-dayjs.extend(localizedFormat);
-
-export const MessageBubble: FC<Props> = (props) => {
-  const currentUserId = useSessionStore((state) => state.currentUserId);
-
-  const messageTime = dayjs(props.time).format("LT");
-
-  if (props.userId === currentUserId) {
-    return <UserMessage text={props.text} messageTime={messageTime} />;
-  }
+export const MessageBubble: FC<Props> = ({ message, messageTime }) => {
+  const users = useUsersStore((state) => state.users);
+  const user = users.find((user) => user.id === message.userId);
 
   return (
-    <Message
-      text={props.text}
-      messageTime={messageTime}
-      userId={props.userId}
-    />
+    <div className={styles.wrapper}>
+      <Badge dot={user?.isOnline} color="#34C759" offset={[-5, 28]}>
+        <Avatar size={32} src={user?.avatar} />
+      </Badge>
+      <div className={styles.bubble}>
+        <div className={styles.message}>
+          <div className={styles.info}>
+            <span className={styles.name}>{user?.name}</span>
+            <span className={styles.role}>{user?.role}</span>
+          </div>
+          <span className={styles.text}>{message.text}</span>
+        </div>
+        <span className={styles.time}>{messageTime}</span>
+      </div>
+    </div>
   );
 };

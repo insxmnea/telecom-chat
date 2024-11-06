@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.bubble {
+  display: grid;
+  grid-template: repeat(2, auto) / repeat(2, auto);
+  grid-template-areas:
+    "message ."
+    ". time";
+
+  padding: 4px 8px;
+  border-radius: 8px;
+  background-color: var(--color-gray-1);
+}
+
+.message {
+  grid-area: message;
+}
+
+.time {
+  grid-area: time;
+  align-self: flex-end;
+}
+
+.info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.role,
+.time {
+  color: var(--color-gray-7);
+  font-size: 12px;
+}

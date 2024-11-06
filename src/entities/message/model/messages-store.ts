@@ -37,9 +37,9 @@ export const useMessagesStore = create<MessagesState>((set) => ({
         messages: result,
       };
     }),
-  deleteMessage: (message: Message) =>
+  deleteMessage: (id: string) =>
     set((state) => {
-      const result = state.messages.filter((m) => m.id !== message.id);
+      const result = state.messages.filter((message) => message.id !== id);
 
       localStorage.setItem($LOCAL_MESSAGES_KEY, JSON.stringify(result));
 
