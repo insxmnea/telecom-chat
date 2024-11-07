@@ -2,18 +2,39 @@
 
 import { SendOutlined, SmileOutlined } from "@ant-design/icons";
 import { Button, Input, Upload } from "antd";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./ChatRoomFooter.module.scss";
 import { useMessagesStore } from "@/entities/message";
 import { AttachmentIcon } from "@/shared";
 import { AttachmentProps } from "../model/AttachmentProps";
+import { EditMessageFlyout } from "@/widgets/edit-message-flyout";
 
 export const ChatRoomFooter: FC = () => {
   const [inputValue, setInputValue] = useState("");
-  const addMessage = useMessagesStore((state) => state.addMessage);
+  const [editMessageText, setEditMessageText] = useState("");
+  const { addMessage, editMessageId, updateMessage, stopEditing, messages } =
+    useMessagesStore();
+
+  useEffect(() => {
+    if (editMessageId) {
+      const messageText =
+        messages.find((message) => message.id === editMessageId)?.text ?? "";
+
+      setInputValue(messageText);
+      setEditMessageText(messageText);
+    } else {
+      setInputValue("");
+    }
+  }, [editMessageId]);
 
   const onSubmit = () => {
-    if (!inputValue) return;
+    if (!inputValue || editMessageText === inputValue) return;
+
+    if (editMessageId) {
+      updateMessage(editMessageId, inputValue);
+      stopEditing();
+      return;
+    }
 
     addMessage({
       id: `msg-${Date.now()}-101`,
@@ -36,6 +57,8 @@ export const ChatRoomFooter: FC = () => {
 
   return (
     <div className={styles.wrapper}>
+      {editMessageId && <EditMessageFlyout text={editMessageText} />}
+
       <Button
         color="default"
         variant="link"
@@ -63,11 +86,15 @@ export const ChatRoomFooter: FC = () => {
         variant="link"
         icon={
           <SendOutlined
-            className={inputValue ? styles.sendIcon : styles.disabled}
+            className={
+              inputValue && editMessageText !== inputValue
+                ? styles.sendIcon
+                : styles.disabled
+            }
           />
         }
         onClick={onSubmit}
-        disabled={!inputValue}
+        disabled={!inputValue || editMessageText === inputValue}
       />
     </div>
   );

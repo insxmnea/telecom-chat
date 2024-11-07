@@ -11,7 +11,11 @@ type Props = {
 };
 
 export const UserMessageBubble: FC<Props> = ({ message, messageTime }) => {
-  const deleteMessage = useMessagesStore((state) => state.deleteMessage);
+  const { deleteMessage, startEditing } = useMessagesStore();
+
+  const onEditMessage = () => {
+    startEditing(message.id);
+  };
 
   const onDeleteMessage = () => {
     deleteMessage(message.id);
@@ -34,6 +38,7 @@ export const UserMessageBubble: FC<Props> = ({ message, messageTime }) => {
           variant="link"
           size="small"
           icon={<EditOutlined className={styles.icon} />}
+          onClick={onEditMessage}
         />
         <Button
           color="default"

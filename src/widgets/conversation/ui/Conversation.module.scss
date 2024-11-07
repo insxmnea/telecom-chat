@@ -5,6 +5,18 @@
   padding-bottom: var(--height-footer);
 }
 
+.wrapperWithEdit {
+  min-height: calc(
+    100vh - var(--height-header) - var(--height-footer) -
+      var(--height-edit-message-flyout)
+  );
+
+  padding-top: var(--height-header);
+  padding-bottom: calc(
+    var(--height-footer) + var(--height-edit-message-flyout)
+  );
+}
+
 .date {
   color: var(--color-gray-7);
   font-size: 12px;

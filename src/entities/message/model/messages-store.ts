@@ -16,6 +16,7 @@ const getInitialMessages = () => {
 
 export const useMessagesStore = create<MessagesState>((set) => ({
   messages: getInitialMessages(),
+  editMessageId: null,
   addMessage: (message: Message) =>
     set((state) => {
       localStorage.setItem(
@@ -25,11 +26,17 @@ export const useMessagesStore = create<MessagesState>((set) => ({
 
       return { messages: [...state.messages, message] };
     }),
-  editMessage: (message: Message) =>
+  startEditing: (id) => set(() => ({ editMessageId: id })),
+  stopEditing: () => set(() => ({ editMessageId: null })),
+  updateMessage: (messageId: string, text: string) =>
     set((state) => {
-      const result = state.messages.map((m) =>
-        m.id === message.id ? message : m
-      );
+      const result = state.messages.map((message) => {
+        if (message.id === messageId) {
+          return { ...message, text };
+        }
+
+        return message;
+      });
 
       localStorage.setItem($LOCAL_MESSAGES_KEY, JSON.stringify(result));
 
@@ -37,9 +44,11 @@ export const useMessagesStore = create<MessagesState>((set) => ({
         messages: result,
       };
     }),
-  deleteMessage: (id: string) =>
+  deleteMessage: (messageId: string) =>
     set((state) => {
-      const result = state.messages.filter((message) => message.id !== id);
+      const result = state.messages.filter(
+        (message) => message.id !== messageId
+      );
 
       localStorage.setItem($LOCAL_MESSAGES_KEY, JSON.stringify(result));
 

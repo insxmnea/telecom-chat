@@ -15,6 +15,7 @@ dayjs.extend(localizedFormat);
 export const Conversation: FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messages = useStore(useMessagesStore, (state) => state.messages);
+  const { editMessageId } = useMessagesStore();
 
   const currentUserId = useSessionStore((state) => state.currentUserId);
 
@@ -24,10 +25,10 @@ export const Conversation: FC = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, editMessageId]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={editMessageId ? styles.wrapperWithEdit : styles.wrapper}>
       <div className={styles.date}>{dayjs(new Date()).format("L")}</div>
 
       {messages?.map((message) =>

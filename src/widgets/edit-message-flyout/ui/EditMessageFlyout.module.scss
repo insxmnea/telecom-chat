@@ -1,0 +1,29 @@
+.wrapper {
+  position: absolute;
+  top: calc(0px - var(--height-footer));
+  left: 0;
+  width: 100%;
+  height: var(--height-edit-message-flyout);
+
+  background-color: var(--color-white);
+
+  border-top: var(--border);
+  border-bottom: var(--border);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 8px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--color-blue);
+}
